@@ -1,7 +1,4 @@
 from collections import deque
-import gc
-gc.collect()
-
 def bfs(graph: dict[int, dict[int, int]], source, target, parent: dict[int, int]):
     visited = set()  # Используем множество для отслеживания посещенных вершин
     queue = deque()

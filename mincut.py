@@ -1,5 +1,3 @@
-
-
 def min_cut(graph, source, sink):
     visited = {vertex: False for vertex in range(source, sink + 1)}
     queue = [source]

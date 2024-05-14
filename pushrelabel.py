@@ -1,6 +1,3 @@
-import networkx as nx
-
-
 class Vertex3:
 
     def __init__(self, index, h, e_flow):
