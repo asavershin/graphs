@@ -1,37 +1,32 @@
-class Vertex3:
+import heapq
 
+class Vertex3:
     def __init__(self, index, h, e_flow):
         self.index = index
         self.h = h
         self.e_flow = e_flow
 
+    def __lt__(self, other):
+        return self.h > other.h
+
+    def __eq__(self, other):
+        return self.h == other.h
+
 class PriorityQueue:
     def __init__(self):
         self.queue = []
 
-    def push(self, vertex: Vertex3):
-        # Добавляем вершину в очередь с приоритетом, сохраняя убывающий порядок по h
-        if not self.queue:
-            self.queue.append(vertex)
-        else:
-            index = 0
-            while index < len(self.queue) and self.queue[index].h >= vertex.h:
-                index += 1
-            self.queue.insert(index, vertex)
+    def push(self, vertex):
+        heapq.heappush(self.queue, vertex)
 
-    def pop(self) -> Vertex3 | None:
-        # Удаляем и возвращаем элемент с наивысшим приоритетом
+    def pop(self):
         if self.queue:
-            return self.queue.pop(0)
+            return heapq.heappop(self.queue)
         else:
             return None
 
-    def __str__(self):
-        return ' '.join([str("|" + str(vertex.index) + "|" + str(vertex.h) + "|" + str(vertex.e_flow) + "|") for vertex in self.queue])
-
     def sort(self):
-        # Сортировка очереди по убыванию h
-        self.queue.sort(key=lambda vertex: vertex.h, reverse=True)
+        heapq.heapify(self.queue)
 
 
 class PushRelabel:
@@ -80,6 +75,7 @@ class PushRelabel:
             tmp.h = distance
 
         self.active.sort()
+
 
     def push(self, vert: Vertex3):
 
